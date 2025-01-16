@@ -1,0 +1,30 @@
+1. Availability
+-Ràng buộc dữ liệu: Đã login thông qua email hoặc mạng xã hội.
+-Phí giao dịch: 0.85%/mỗi giao dịch swap, nghĩa là mỗi lần swap sẽ mất phí là 0.85%/giao dịch
+-Token được hỗ trợ: Người dùng chỉ có thể thực hiện swap với các token nằm trong danh sách được hỗ trợ bởi 1Inch
+(1Inch là một giao thức tổng hợp cho giao dịch tiền mã hóa, và nó chỉ hỗ trợ mọt số loại token nhất định.)
+=> nếu muốn swap từ đồng A sang đồng B thì cả 2 đồng này phải được hỗ trợ bởi 1Inch.
+-Khả dụng mạng lưới: Tính năng swap không khả dụng trên sepolia hoặc các tesnet khác.
+2. Cách sử dụng
+- Đầu tiên là phải đảm bảo đã đăng nhập thông qua email or mạng xã hội
+- Điều hướng đến trang swap trên giao diện
+- Chọn các token mà muốn swap từ danh sách tùy chọn có sẵn (nhớ là các token swap phải được hỗ trợ bởi 1Inch như trên kia)
+- Nhập số lượng mà mình muốn swap, có thể thêm nút max để swap toàn bộ token.
+- Hiện thị chi tiết swap bao gồm các thông tin như sau:
+	+Số lượng nhận được
+	+phí mạng (gas fee chắc m biết rồi nên khỏi giải thích)
+	+Độ trượt giá tối đa (Giới hạn bạn chấp nhận khi giá thay đổi. nó kiểu như là các token có thể thay đổi giá nhanh chóng giữa thời điểm giao dịch và thời điểm 
+giao dịch được xử lí, ví dụ m đặt độ trượt tối đa là 1 %, nếu giá token thay đổi trong lúc giao dịch từ 100USDT sang hơn 101USDT hoặc dưới 99USDT
+thì giao dịch sẽ k thực hiện)
+	+Tác động giá: Sự thay đổi giá do giao dịch của bạn ảnh hưởng đến thanh khoản thị trường.
+- Xác nhận swap: xem lại các chi tiết ở trên, bao gồm cả phí giao dịch là 0.85%/giao dịch, và xác nhận swap.
+3.Tích hợp swap
+const modal = createAppKit({
+  adapters: [wagmiAdapter],// adapter được sử dụng
+  projectId,//id dự án của m
+  networks: [mainnet, arbitrum], //list các mạng được hỗ trợ (vd ETH,Arbitrum)
+  metadata: metadata,
+  features: {
+    swaps: false // Mặc định là true để có thể sử dụng tính năng swap mà k cần cấu hình, còn tắt thì set bằng false
+  }
+})
