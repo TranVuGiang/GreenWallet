@@ -1,9 +1,41 @@
+import { metadata, projectId, solanaWeb3JsAdapter } from '@/config';
+import { etherlink, polygon, solana, solanaDevnet, solanaTestnet } from '@reown/appkit/networks';
+import { createAppKit } from '@reown/appkit/react';
 import { Leaf, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
+
+// Create modal
+createAppKit({
+  projectId,
+  metadata,
+  themeMode: 'light',
+  networks: [solana, solanaTestnet, solanaDevnet , polygon, etherlink],
+  adapters: [solanaWeb3JsAdapter],
+  features: {
+    analytics: true // Optional - defaults to your Cloud configuration
+  }
+})
+
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [transactionHash, setTransactionHash] = useState<string | undefined>(undefined)
+  const [signedMsg, setSignedMsg] = useState('')
+  const [balance, setBalance] = useState('')
+
+  const receiveHash = (hash: string) => {
+    setTransactionHash(hash)
+  }
+
+  const receiveSignedMsg = (signedMsg: string) => {
+    setSignedMsg(signedMsg); // Update the state with the transaction hash
+  };
+
+  const receivebalance = (balance: string) => {
+    setBalance(balance)
+  }
 
   return (
     <nav className="bg-white shadow-md">
@@ -19,9 +51,7 @@ export const Navbar = () => {
             <Link to="/dashboard" className="text-gray-600 hover:text-green-600">Dashboard</Link>
             <Link to="/swap" className="text-gray-600 hover:text-green-600">Swap</Link>
             <Link to="/impact" className="text-gray-600 hover:text-green-600">Impact</Link>
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-              Connect Wallet
-            </button>
+            <appkit-button/>
           </div>
 
           {/* Mobile Navigation Button */}
@@ -38,9 +68,7 @@ export const Navbar = () => {
             <Link to="/dashboard" className="block py-2 text-gray-600">Dashboard</Link>
             <Link to="/swap" className="block py-2 text-gray-600">Swap</Link>
             <Link to="/impact" className="block py-2 text-gray-600">Impact</Link>
-            <button className="w-full bg-green-600 text-white px-4 py-2 rounded-lg mt-2">
-              Connect Wallet
-            </button>
+            <appkit-button/>
           </div>
         )}
       </div>
