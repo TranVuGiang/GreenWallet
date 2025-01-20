@@ -5,6 +5,8 @@ import {
     useAppKitTheme,
     useWalletInfo
 } from '@reown/appkit/react';
+import SwapTokenComponent from './test';
+
 
 interface InfoListProps {
     hash: string | undefined;
@@ -19,7 +21,16 @@ export const InfoList = ({ hash, signedMsg, balance }: InfoListProps) => {
     const events = useAppKitEvents()
     const walletInfo = useWalletInfo()
 
-  
+    // useEffect(() => {
+    //     const fetchedInfo = async() => {
+    //         try {
+    //             await SwapController.getTokenList();
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     }
+    // })
+
     return (
         <div className="w-full max-w-4xl mx-auto p-6 space-y-6">
             {balance && (
@@ -28,7 +39,7 @@ export const InfoList = ({ hash, signedMsg, balance }: InfoListProps) => {
                     <p className="text-lg text-gray-700 dark:text-gray-200">{balance}</p>
                 </section>
             )}
-
+            <SwapTokenComponent />
             {hash && (
                 <section className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Sign Tx</h2>
